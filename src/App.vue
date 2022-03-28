@@ -1,10 +1,38 @@
 <template>
   <nav>
+    <el-button type="primary" @click="handleClick">Primary</el-button>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view />
 </template>
+
+<script>
+import { defineComponent } from "vue";
+import { request } from "./network/request";
+
+export default defineComponent({
+  setup() {
+    const handleClick = () => {
+      console.log("123123");
+      request(
+        {
+          url: "/students/getAll",
+          method: "get",
+        },
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    };
+
+    return { handleClick };
+  },
+});
+</script>
 
 <style>
 #app {
