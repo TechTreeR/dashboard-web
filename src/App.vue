@@ -1,17 +1,21 @@
 <template>
-  <nav>
-    <el-button type="primary" @click="handleClick">Primary</el-button>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="app">
+    <el-config-provider :locale="zhCn">
+      <router-view></router-view>
+    </el-config-provider>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
 import { request } from "./network/request";
+import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/lib/locale/lang/zh-cn";
 
 export default defineComponent({
+  components: {
+    ElConfigProvider,
+  },
   setup() {
     const handleClick = () => {
       console.log("123123");
@@ -29,30 +33,13 @@ export default defineComponent({
       );
     };
 
-    return { handleClick };
+    return { handleClick, zhCn };
   },
 });
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.app {
+  height: 100%;
 }
 </style>
