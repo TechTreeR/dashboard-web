@@ -19,18 +19,6 @@ export default defineComponent({
   setup() {
     const handleClick = () => {
       console.log("123123");
-      request(
-        {
-          url: "/students/getAll",
-          method: "get",
-        },
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
     };
 
     return { handleClick, zhCn };

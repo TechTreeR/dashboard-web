@@ -42,9 +42,12 @@ export default defineComponent({
 
     // 2.定义方法
     const handleLoginClick = () => {
-      console.log("login");
+      console.log("handleLoginClick");
       if (currentTab.value === "account") {
-        //accountRef.value?.loginAction(isKeepPassword.value);
+        console.log("handleLoginClick account");
+
+        accountRef.value?.loginAction();
+        //console.log(accountRef.value);
       } else {
         console.log("phoneRef调用loginAction");
       }
