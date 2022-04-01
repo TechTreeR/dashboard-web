@@ -1,10 +1,10 @@
 <template>
   <div class="login-account">
     <el-form label-width="60px" :model="account" ref="formRef">
-      <el-form-item label="账号" prop="name">
+      <el-form-item label="name" prop="name">
         <el-input v-model="account.name" />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item label="pw" prop="password">
         <el-input v-model="account.password" show-password />
       </el-form-item>
     </el-form>
@@ -36,7 +36,7 @@ export default defineComponent({
       if (account.name !== "test" || account.password !== "test") {
         ElNotification({
           title: "Error",
-          message: "登陆失败",
+          message: "login fail",
           type: "error",
         });
         return;
@@ -49,13 +49,13 @@ export default defineComponent({
         },
         (res) => {
           const result = res.data;
-          console.log("登陆成功");
+          console.log("success");
           ElNotification({
-            title: "登陆成功",
+            title: "login success",
             message: h(
               "i",
               { style: "color: teal" },
-              "登陆成功" + JSON.stringify(result.data)
+              "login success" + JSON.stringify(result.data)
             ),
           });
         },

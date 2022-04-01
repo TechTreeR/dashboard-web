@@ -1,27 +1,27 @@
 <template>
   <div class="login-panel">
-    <h1 class="title">XJTU教务管理系统</h1>
+    <h1 class="title">XJTLU Management System</h1>
     <el-tabs type="border-card" stretch v-model="currentTab">
       <el-tab-pane name="account">
         <template #label>
-          <span><i class="el-icon-user-solid"></i> 账号登录</span>
+          <span><i class="el-icon-user-solid"></i> Login</span>
         </template>
         <login-account ref="accountRef" />
       </el-tab-pane>
       <el-tab-pane name="phone">
         <template #label>
-          <span><i class="el-icon-mobile-phone"></i> 手机登录</span>
+          <span><i class="el-icon-mobile-phone"></i> Register</span>
         </template>
       </el-tab-pane>
     </el-tabs>
 
     <div class="account-control">
-      <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
-      <el-link type="primary">忘记密码</el-link>
+      <el-checkbox v-model="isKeepPassword">remember me</el-checkbox>
+      <el-link type="primary">forget password</el-link>
     </div>
 
     <el-button type="primary" class="login-btn" @click="handleLoginClick"
-      >立即登录</el-button
+      >LOGIN</el-button
     >
   </div>
 </template>

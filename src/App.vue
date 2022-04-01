@@ -8,7 +8,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import { request } from "./network/request";
 import { ElConfigProvider } from "element-plus";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
 
