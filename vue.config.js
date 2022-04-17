@@ -4,16 +4,8 @@ module.exports = defineConfig({
   lintOnSave: false,
   // 1.配置方式一: CLI提供的属性
   outputDir: "./build",
-  // publicPath: './',
+  publicPath: "./",
   devServer: {
-    proxy: {
-      "^/api": {
-        target: "http://101.35.20.193:8081",
-        pathRewrite: {
-          "^/api": "",
-        },
-        changeOrigin: true,
-      },
-    },
+    port: 3000, // 端口
   },
 });

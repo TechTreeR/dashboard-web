@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-
 const routes = [
   {
     path: "/login",
@@ -22,5 +21,16 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
+// 导航守卫
+router.beforeEach((to) => {
+  console.log(to);
+  // if (to.path !== "/login") {
+  //   //const info = store.getters.login.getUserInfo();
+  //   console.log("before");
+  //   //console.log(info);
+  //   // if (!info) {
+  //   //   return "/login";
+  //   // }
+  // }
+});
 export default router;

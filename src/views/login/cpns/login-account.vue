@@ -2,7 +2,7 @@
   <div class="login-account">
     <el-form label-width="60px" :model="account" ref="formRef">
       <el-form-item label="name" prop="name">
-        <el-input v-model="account.name" />
+        <el-input v-model="account.email" />
       </el-form-item>
       <el-form-item label="pw" prop="password">
         <el-input v-model="account.password" show-password />
@@ -16,6 +16,7 @@ import { defineComponent, reactive, ref, h } from "vue";
 import { useStore } from "vuex";
 import { request } from "../../../network/request";
 import { ElNotification } from "element-plus";
+import { useRouter } from "vue-router";
 //import { ElForm } from "element-plus";
 //import localCache from '@/utils/cache'
 
@@ -24,23 +25,15 @@ import { ElNotification } from "element-plus";
 export default defineComponent({
   setup() {
     const store = useStore();
-
+    const router = useRouter();
     const account = reactive({
-      name: "",
+      email: "",
       password: "",
     });
 
     const formRef = ref();
 
     const loginAction = () => {
-      if (account.name !== "test" || account.password !== "test") {
-        ElNotification({
-          title: "Error",
-          message: "login fail",
-          type: "error",
-        });
-        return;
-      }
       request(
         {
           url: "/login",
@@ -48,6 +41,7 @@ export default defineComponent({
           data: { ...account },
         },
         (res) => {
+          console.log(res);
           const result = res.data;
           console.log("success");
           ElNotification({
@@ -58,34 +52,18 @@ export default defineComponent({
               "login success" + JSON.stringify(result.data)
             ),
           });
+          store.dispatch("login/accountLoginAction", result);
+          router.push("main");
         },
         (err) => {
           console.log(err);
+          ElNotification({
+            title: "Error",
+            message: "login fail",
+            type: "error",
+          });
         }
       );
-      // 发送 axios 请求
-
-      // 利用 vuex 处理相关信息
-      console.log("123123");
-      console.log({ ...account });
-      // formRef.value?.validate((valid) => {
-      //   console.log(...account);
-      //   if (valid) {
-      //     // 1.判断是否需要记住密码
-      //     if (isKeepPassword) {
-      //       // 本地缓存
-      //       //localCache.setCache("name", account.name);
-      //       //localCache.setCache("password", account.password);
-      //     } else {
-      //       //localCache.deleteCache("name");
-      //       //localCache.deleteCache("password");
-      //     }
-
-      //     // 2.开始进行登录验证
-      store.dispatch("login/accountLoginAction", { ...account });
-      //     console.log(...account);
-      //   }
-      // });
     };
 
     return {
