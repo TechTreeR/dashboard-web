@@ -1,0 +1,112 @@
+<template>
+  <div class="nav-left">
+    <el-row class="tac">
+      <el-col>
+        <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+        >
+          <el-menu-item index="0" disabled>
+            <el-icon></el-icon>
+            <span></span>
+          </el-menu-item>
+          <el-menu-item index="-1" disabled>
+            <el-icon></el-icon>
+            <span></span>
+          </el-menu-item>
+          <el-menu-item index="1" @click="toPickLessons">
+            <el-icon><folder-opened /></el-icon>
+            <span>选课</span>
+          </el-menu-item>
+          <el-menu-item index="2" @click="toMyLessons">
+            <el-icon><document /></el-icon>
+            <span>我的选课</span>
+          </el-menu-item>
+          <el-menu-item index="3" @click="toMySpace">
+            <el-icon><setting /></el-icon>
+            <span>个人设置</span>
+          </el-menu-item>
+          <div class="exit" @click="exitSystem">
+            <el-menu-item index="4">
+              <el-icon><setting /></el-icon>
+              <span>退出系统</span>
+            </el-menu-item>
+          </div>
+        </el-menu>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
+import { ElMessageBox, ElMessage } from "element-plus";
+import { Document, Setting, FolderOpened } from "@element-plus/icons-vue";
+export default defineComponent({
+  components: {
+    Document,
+    Setting,
+    FolderOpened,
+  },
+  setup() {
+    const router = useRouter();
+    const handleOpen = (key, keyPath) => {
+      console.log(key, keyPath);
+    };
+    const toMySpace = () => {
+      console.log("hi");
+      router.push("/main/my-space");
+    };
+    const toPickLessons = () => {
+      router.push("/main/pick-lessons");
+    };
+    const toMyLessons = () => {
+      router.push("/main/my-lessons");
+    };
+    const handleClose = (key, keyPath) => {
+      console.log(key, keyPath);
+    };
+    const exitSystem = () => {
+      ElMessageBox.confirm(
+        "Are you sure to exit the System. Continue?",
+        "Warning",
+        {
+          confirmButtonText: "OK",
+          cancelButtonText: "Cancel",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          ElMessage({
+            type: "success",
+            message: "logout success",
+          });
+          router.push("/login");
+        })
+        .catch(() => {
+          ElMessage({
+            type: "info",
+            message: "logout cancel",
+          });
+        });
+    };
+    return {
+      handleClose,
+      handleOpen,
+      toMySpace,
+      toPickLessons,
+      toMyLessons,
+      exitSystem,
+    };
+  },
+});
+</script>
+
+<style scoped lang="less">
+.exit {
+  margin-top: 260px;
+}
+</style>

@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+
 const routes = [
   {
     path: "/login",
@@ -9,6 +10,20 @@ const routes = [
     path: "/main",
     name: "main",
     component: () => import("@/views/main/main-page.vue"),
+    children: [
+      {
+        path: "my-lessons",
+        component: () => import("@/views/main/my-lessons/my-lessons.vue"),
+      },
+      {
+        path: "my-space",
+        component: () => import("@/views/main/my-space/my-space.vue"),
+      },
+      {
+        path: "pick-lessons",
+        component: () => import("@/views/main/pick-lessons/pick-lessons.vue"),
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
