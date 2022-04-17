@@ -25,7 +25,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .header {
-  margin-left: 30px;
-  margin-top: 10px;
+  margin-left: 50px;
+  margin-top: 30px;
 }
 </style>

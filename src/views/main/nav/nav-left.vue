@@ -3,7 +3,7 @@
     <el-row class="tac">
       <el-col>
         <el-menu
-          default-active="2"
+          default-active="1"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
@@ -107,6 +107,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .exit {
-  margin-top: 260px;
+  margin-top: 300px;
 }
 </style>

@@ -53,7 +53,7 @@ export default defineComponent({
             ),
           });
           store.dispatch("login/accountLoginAction", result);
-          router.push("main");
+          router.push("/main/my-space");
         },
         (err) => {
           console.log(err);
