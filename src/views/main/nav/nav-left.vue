@@ -45,6 +45,8 @@ import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
 import { Document, Setting, FolderOpened } from "@element-plus/icons-vue";
+import localCache from "@/utils/cache";
+
 export default defineComponent({
   components: {
     Document,
@@ -84,6 +86,8 @@ export default defineComponent({
             type: "success",
             message: "logout success",
           });
+          localCache.clearCache();
+          localCache.deleteCache("access_token");
           router.push("/login");
         })
         .catch(() => {

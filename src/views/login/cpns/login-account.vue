@@ -18,7 +18,7 @@ import { request } from "@/network/request";
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
 //import { ElForm } from "element-plus";
-//import localCache from '@/utils/cache'
+import localCache from "@/utils/cache";
 
 //import { rules } from '../config/account-config'
 
@@ -41,16 +41,16 @@ export default defineComponent({
           data: { ...account },
         },
         (res) => {
-          console.log(res);
           const result = res.data;
           console.log(result);
-          console.log("success");
           if (result.code === 200) {
             ElNotification({
               title: "Welcome!!",
               message: h("i", { style: "color: teal" }, "login success"),
             });
+            localCache.setCache("access_token", result.data.accessToken);
             store.dispatch("login/accountLoginAction", result);
+
             router.push("/main/my-space");
           } else {
             ElNotification({

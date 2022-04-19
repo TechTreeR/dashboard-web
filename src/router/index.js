@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-
+import localCache from "@/utils/cache";
 const routes = [
   {
     path: "/",
@@ -43,13 +43,13 @@ const router = createRouter({
 // 导航守卫
 router.beforeEach((to) => {
   console.log(to);
-  // if (to.path !== "/login") {
-  //   //const info = store.getters.login.getUserInfo();
-  //   console.log("before");
-  //   //console.log(info);
-  //   // if (!info) {
-  //   //   return "/login";
-  //   // }
-  // }
+  if (to.path !== "/login") {
+    const ac_token = localCache.getCache("access_token");
+    console.log(ac_token);
+    if (!ac_token) {
+      console.log("jinlai");
+      return "/login";
+    }
+  }
 });
 export default router;
