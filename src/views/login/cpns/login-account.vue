@@ -46,12 +46,17 @@ export default defineComponent({
           if (result.code === 200) {
             ElNotification({
               title: "Welcome!!",
-              message: h("i", { style: "color: teal" }, "login success"),
+              message: h(
+                "i",
+                { style: "color: teal" },
+                "Please refresh if not routered"
+              ),
+              duration: 0,
             });
             localCache.setCache("access_token", result.data.accessToken);
             store.dispatch("login/accountLoginAction", result);
 
-            router.push("/main/my-space");
+            router.push("/main");
           } else {
             ElNotification({
               title: "Error",
