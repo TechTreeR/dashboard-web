@@ -79,6 +79,8 @@ const registerUser = () => {
           email: register.email,
           password: register.password,
           verifyCode: register.code,
+          name: "new user",
+          sex: "male",
         },
       },
       (res) => {
