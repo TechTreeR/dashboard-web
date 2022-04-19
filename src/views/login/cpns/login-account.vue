@@ -14,7 +14,7 @@
 <script>
 import { defineComponent, reactive, ref, h } from "vue";
 import { useStore } from "vuex";
-import { request } from "../../../network/request";
+import { request } from "@/network/request";
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
 //import { ElForm } from "element-plus";
@@ -43,25 +43,25 @@ export default defineComponent({
         (res) => {
           console.log(res);
           const result = res.data;
+          console.log(result);
           console.log("success");
-          ElNotification({
-            title: "login success",
-            message: h(
-              "i",
-              { style: "color: teal" },
-              "login success" + JSON.stringify(result.data)
-            ),
-          });
-          store.dispatch("login/accountLoginAction", result);
-          router.push("/main/my-space");
+          if (result.code === 200) {
+            ElNotification({
+              title: "Welcome!!",
+              message: h("i", { style: "color: teal" }, "login success"),
+            });
+            store.dispatch("login/accountLoginAction", result);
+            router.push("/main/my-space");
+          } else {
+            ElNotification({
+              title: "Error",
+              message: "login fail",
+              type: "error",
+            });
+          }
         },
         (err) => {
           console.log(err);
-          ElNotification({
-            title: "Error",
-            message: "login fail",
-            type: "error",
-          });
         }
       );
     };

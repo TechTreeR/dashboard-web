@@ -8,48 +8,51 @@
         </template>
         <login-account ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane name="phone">
+      <el-tab-pane name="register">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i> Register</span>
         </template>
+        <login-register ref="registerRef" />
       </el-tab-pane>
     </el-tabs>
-
     <div class="account-control">
       <el-checkbox v-model="isKeepPassword">remember me</el-checkbox>
       <el-link type="primary">forget password</el-link>
     </div>
-
-    <el-button type="primary" class="login-btn" @click="handleLoginClick"
-      >LOGIN</el-button
-    >
+    <el-button type="primary" class="login-btn" @click="handleLoginClick">{{
+      currentTab === "account" ? "Login" : "Register"
+    }}</el-button>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import LoginAccount from "./login-account.vue";
+import LoginRegister from "./login-register.vue";
 
 export default defineComponent({
   components: {
     LoginAccount,
+    LoginRegister,
   },
   setup() {
     // 1.定义属性
     const isKeepPassword = ref(true);
     const accountRef = ref();
+    const registerRef = ref();
     const currentTab = ref("account");
 
     // 2.定义方法
     const handleLoginClick = () => {
-      console.log("handleLoginClick");
       if (currentTab.value === "account") {
-        console.log("handleLoginClick account");
+        console.log("login");
 
         accountRef.value?.loginAction();
         //console.log(accountRef.value);
       } else {
-        console.log("phoneRef调用loginAction");
+        console.log("Register");
+        console.log(registerRef.value);
+        registerRef.value?.registerUser();
       }
     };
 
@@ -58,6 +61,7 @@ export default defineComponent({
       accountRef,
       currentTab,
       handleLoginClick,
+      registerRef,
     };
   },
 });

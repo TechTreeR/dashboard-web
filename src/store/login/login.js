@@ -27,6 +27,7 @@ const loginModule = {
       console.log("hello vuex");
       console.log(payload);
       console.log("hi");
+
       commit("changeUserInfo", payload.data.student);
       // 2.转到main
     },

@@ -16,10 +16,12 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onMounted } from "vue";
+import { defineComponent, reactive, onMounted, toRaw } from "vue";
 import { request } from "@/network/request";
+import { useStore } from "vuex";
 export default defineComponent({
   setup() {
+    const store = useStore();
     const lessons4pick = reactive({
       list: [],
     });
@@ -30,7 +32,7 @@ export default defineComponent({
           method: "get",
         },
         (res) => {
-          lessons4pick.list = res.data.data.slice(6, 15);
+          lessons4pick.list = res.data.data;
           console.log(lessons4pick.list);
         },
         (err) => {
@@ -38,10 +40,15 @@ export default defineComponent({
         }
       );
     };
+    const hi = () => {
+      let data = toRaw(store.getters[`login/getUserInfo`]);
+      console.log(data);
+    };
     onMounted(getAllClass);
 
     return {
       lessons4pick,
+      hi,
     };
   },
   onMounted() {},
