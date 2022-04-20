@@ -56,7 +56,7 @@ export default defineComponent({
             localCache.setCache("access_token", result.data.accessToken);
             store.dispatch("login/accountLoginAction", result);
 
-            router.push("/main");
+            router.push("/main/pick-lessons");
           } else {
             ElNotification({
               title: "Error",
