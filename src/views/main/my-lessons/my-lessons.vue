@@ -36,6 +36,7 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.pickedList = res.data.data;
+          console.log('123')
           console.log(lessons4pick.pickedList);
         },
         (err) => {
@@ -49,9 +50,13 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.list = res.data.data;
+          console.log('123')
           console.log(lessons4pick.list);
+          console.log(lessons4pick.list.length)
+          if(lessons4pick.pickedList === null) {
+            lessons4pick.list.length = 0;
+          }
           lessons4pick.list = lessons4pick.list.filter((allLesson) => {
-            console.log(allLesson.cid);
             for (const lesson of lessons4pick.pickedList) {
               console.log(lesson.cid);
               if (allLesson.cid === lesson.cid) {
