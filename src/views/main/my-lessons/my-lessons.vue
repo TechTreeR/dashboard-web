@@ -19,21 +19,49 @@
 import { defineComponent, reactive, onMounted, toRaw } from "vue";
 import { request } from "@/network/request";
 import { useStore } from "vuex";
+import localCache from "@/utils/cache";
+
 export default defineComponent({
   setup() {
     const store = useStore();
     const lessons4pick = reactive({
       list: [],
+      pickedList: [],
     });
     const getAllClass = () => {
       request(
         {
-          url: "/courses/getAll",
+          url: "/students/allcourses/" + localCache.getCache("uid"),
+          method: "get",
+        },
+        (res) => {
+          lessons4pick.pickedList = res.data.data;
+          console.log(lessons4pick.pickedList);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+      request(
+        {
+          url: "/students/courses/" + localCache.getCache("uid"),
           method: "get",
         },
         (res) => {
           lessons4pick.list = res.data.data;
           console.log(lessons4pick.list);
+          lessons4pick.list = lessons4pick.list.filter((allLesson) => {
+            console.log(allLesson.cid);
+            for (const lesson of lessons4pick.pickedList) {
+              console.log(lesson.cid);
+              if (allLesson.cid === lesson.cid) {
+                return true;
+              }
+            }
+            return false;
+          });
+          console.log("hihihi", lessons4pick.list);
+          console.log("end");
         },
         (err) => {
           console.log(err);

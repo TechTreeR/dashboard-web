@@ -111,6 +111,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .exit {
-  margin-top: 300px;
+  margin-top: 360px;
 }
 </style>

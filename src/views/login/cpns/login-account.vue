@@ -54,6 +54,7 @@ export default defineComponent({
               duration: 0,
             });
             localCache.setCache("access_token", result.data.accessToken);
+            localCache.setCache("uid", result.data.student.id);
             store.dispatch("login/accountLoginAction", result);
 
             router.push("/main/pick-lessons");
