@@ -1,4 +1,19 @@
 <template>
+  <div>
+    <el-row :gutter="2">
+      <el-input
+        v-model="searchCId"
+        class="w-50 m-2"
+        placeholder="Type cid to find class"
+        size="large"
+        @change="search"
+      >
+        <template #prefix>
+          <el-icon class="el-input__icon"><search /></el-icon>
+        </template>
+      </el-input>
+    </el-row>
+  </div>
   <div class="pick-lessons" @click="hi">
     <el-table :data="lessons4pick.list" stripe style="width: 100%" height="600">
       <el-table-column prop="cid" label="ID" width="120" />
@@ -24,12 +39,17 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onMounted, h } from "vue";
+import { Search } from "@element-plus/icons-vue";
+import { defineComponent, reactive, onMounted, h, ref } from "vue";
 import { request } from "@/network/request";
 import localCache from "@/utils/cache";
 import { ElNotification } from "element-plus";
 export default defineComponent({
+  components: {
+    Search,
+  },
   setup() {
+    const searchCId = ref("");
     const lessons4pick = reactive({
       list: [],
     });
@@ -78,9 +98,24 @@ export default defineComponent({
         }
       );
     };
+    const search = () => {
+      if ("" === searchCId.value) {
+        getAllClass();
+      }
+      console.log("search");
+      console.log(searchCId.value);
+      lessons4pick.list = lessons4pick.list.filter((lesson) => {
+        if (lesson.cid === searchCId.value) {
+          return true;
+        }
+        return false;
+      });
+    };
     return {
       lessons4pick,
       handleDelete,
+      searchCId,
+      search,
     };
   },
   onMounted() {},

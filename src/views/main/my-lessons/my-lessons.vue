@@ -46,7 +46,7 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.pickedList = res.data.data;
-          console.log('123')
+          console.log("123");
           console.log(lessons4pick.pickedList);
         },
         (err) => {
@@ -60,10 +60,10 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.list = res.data.data;
-          console.log('123')
+          console.log("123");
           console.log(lessons4pick.list);
-          console.log(lessons4pick.list.length)
-          if(lessons4pick.pickedList === null) {
+          console.log(lessons4pick.list.length);
+          if (lessons4pick.pickedList === null) {
             lessons4pick.list.length = 0;
           }
           lessons4pick.list = lessons4pick.list.filter((allLesson) => {
@@ -93,22 +93,21 @@ export default defineComponent({
         {
           url: "/students/withdraw",
           method: "put",
-          data : {
+          data: {
             cid: row.cid,
-            sid: localCache.getCache("uid")
-          }
+            sid: localCache.getCache("uid"),
+          },
         },
         (res) => {
           const result = res.data;
           console.log(result);
           if (result.code === 200) {
             lessons4pick.list = lessons4pick.list.filter((allLesson) => {
-            if(row.cid === allLesson.cid) {
-              return false;
-            }
-            return true;
-            
-          });
+              if (row.cid === allLesson.cid) {
+                return false;
+              }
+              return true;
+            });
             ElNotification({
               title: "Success",
               message: h(
@@ -124,13 +123,12 @@ export default defineComponent({
           console.log(err);
         }
       );
-      
     };
-    
+
     return {
       lessons4pick,
       hi,
-      handleUnsubscribe
+      handleUnsubscribe,
     };
   },
   onMounted() {},
