@@ -1,17 +1,19 @@
 <template>
   <div>
     <el-row :gutter="2">
-      <el-input
-        v-model="searchCId"
-        class="w-50 m-2"
-        placeholder="Type cid to find class"
-        size="large"
-        @change="search"
-      >
-        <template #prefix>
-          <el-icon class="el-input__icon"><search /></el-icon>
-        </template>
-      </el-input>
+      <div class="search-bar">
+        <el-input
+          v-model="searchCId"
+          class="w-50 m-2"
+          placeholder="Type cid to find class"
+          size="large"
+          @change="search"
+        >
+          <template #prefix>
+            <el-icon class="el-input__icon"><search /></el-icon>
+          </template>
+        </el-input>
+      </div>
     </el-row>
   </div>
   <div class="pick-lessons" @click="hi">
@@ -121,3 +123,9 @@ export default defineComponent({
   onMounted() {},
 });
 </script>
+
+<style scoped lang="less">
+.search-bar {
+  width: 400px;
+}
+</style>
