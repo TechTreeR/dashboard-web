@@ -18,20 +18,20 @@
           </el-menu-item>
           <el-menu-item index="1" @click="toPickLessons">
             <el-icon><folder-opened /></el-icon>
-            <span>选课</span>
+            <span>Square</span>
           </el-menu-item>
           <el-menu-item index="2" @click="toMyLessons">
             <el-icon><document /></el-icon>
-            <span>我的选课</span>
+            <span>My Lessons</span>
           </el-menu-item>
           <el-menu-item index="3" @click="toMySpace">
             <el-icon><setting /></el-icon>
-            <span>个人设置</span>
+            <span>Settings</span>
           </el-menu-item>
           <div class="exit" @click="exitSystem">
             <el-menu-item index="4">
               <el-icon><setting /></el-icon>
-              <span>退出系统</span>
+              <span>Log out</span>
             </el-menu-item>
           </div>
         </el-menu>

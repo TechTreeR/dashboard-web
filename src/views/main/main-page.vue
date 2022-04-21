@@ -4,7 +4,9 @@
       <el-aside width="200px"><nav-left /> </el-aside>
       <el-container>
         <el-header
-          ><div class="header"><h3>教务管理系统</h3></div></el-header
+          ><div class="header">
+            <h3>XJTLU Educational Management System</h3>
+          </div></el-header
         >
         <el-main class="page-content"
           ><div class="page-info">
