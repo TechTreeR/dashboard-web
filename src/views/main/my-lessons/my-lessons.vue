@@ -7,10 +7,20 @@
     <el-table :data="lessons4pick.list" stripe style="width: 100%" height="600">
       <el-table-column prop="cid" label="ID" width="120" />
       <el-table-column prop="cname" label="Class Name" width="220" />
-      <el-table-column prop="tname" label="Teacher" width="160" />
-      <el-table-column prop="place" label="Location" width="160" />
-      <el-table-column prop="major" label="Major" width="220" />
+      <el-table-column prop="tname" label="Teacher" width="100" />
+      <el-table-column prop="place" label="Location" width="100" />
+      <el-table-column prop="major" label="Major" width="120" />
       <el-table-column prop="capacity" label="Capacity" width="120" />
+      <el-table-column label="Operation" width="120" align="right">
+        <template #default="scope">
+          <el-button
+            size="small"
+            type="success"
+            @click="handleUnsubscribe(scope.$index, scope.row)"
+            >Unsubscribe</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -78,10 +88,49 @@ export default defineComponent({
       console.log(data);
     };
     onMounted(getAllClass);
-
+    const handleUnsubscribe = (index, row) => {
+      request(
+        {
+          url: "/students/withdraw",
+          method: "put",
+          data : {
+            cid: row.cid,
+            sid: localCache.getCache("uid")
+          }
+        },
+        (res) => {
+          const result = res.data;
+          console.log(result);
+          if (result.code === 200) {
+            lessons4pick.list = lessons4pick.list.filter((allLesson) => {
+            if(row.cid === allLesson.cid) {
+              return false;
+            }
+            return true;
+            
+          });
+            ElNotification({
+              title: "Success",
+              message: h(
+                "i",
+                { style: "color: teal" },
+                "You have added the class successfully"
+              ),
+              duration: 4,
+            });
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+      
+    };
+    
     return {
       lessons4pick,
       hi,
+      handleUnsubscribe
     };
   },
   onMounted() {},
