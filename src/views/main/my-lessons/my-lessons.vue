@@ -2,7 +2,7 @@
   <div class="my-lessons" @click="hi">
     <h3 class="my-class">我的已选课程</h3>
     <div class="lesson-progress">
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="70" />
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="num" />
     </div>
     <el-table :data="lessons4pick.list" stripe style="width: 100%" height="600">
       <el-table-column prop="cid" label="ID" width="120" />
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, onMounted, toRaw } from "vue";
+import { defineComponent, reactive, onMounted, toRaw, ref } from "vue";
 import { request } from "@/network/request";
 import { useStore } from "vuex";
 import localCache from "@/utils/cache";
@@ -34,6 +34,7 @@ import localCache from "@/utils/cache";
 export default defineComponent({
   setup() {
     const store = useStore();
+    var num = reactive(0);
     const lessons4pick = reactive({
       list: [],
       pickedList: [],
@@ -46,7 +47,9 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.pickedList = res.data.data;
-          console.log("123");
+          num = (lessons4pick.pickedList.length / 4) * 100;
+          console.log(num);
+          console.log("123lyx7");
           console.log(lessons4pick.pickedList);
         },
         (err) => {
@@ -99,6 +102,8 @@ export default defineComponent({
           },
         },
         (res) => {
+          localCache.setCache("cnum", localCache.getCache("cnum") - 1);
+          num = (localCache.getCache("cnum") / 4) * 100;
           const result = res.data;
           console.log(result);
           if (result.code === 200) {
@@ -107,15 +112,6 @@ export default defineComponent({
                 return false;
               }
               return true;
-            });
-            ElNotification({
-              title: "Success",
-              message: h(
-                "i",
-                { style: "color: teal" },
-                "You have added the class successfully"
-              ),
-              duration: 4,
             });
           }
         },
@@ -126,6 +122,7 @@ export default defineComponent({
     };
 
     return {
+      num,
       lessons4pick,
       hi,
       handleUnsubscribe,

@@ -56,6 +56,19 @@ export default defineComponent({
             localCache.setCache("access_token", result.data.accessToken);
             localCache.setCache("uid", result.data.student.id);
             store.dispatch("login/accountLoginAction", result);
+            request(
+              {
+                url: "/students/allcourses/" + localCache.getCache("uid"),
+                method: "get",
+              },
+              (res) => {
+                const listR = res.data.data;
+                localCache.setCache("cnum", listR.length);
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
 
             router.push("/main/pick-lessons");
           } else {

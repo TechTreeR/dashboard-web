@@ -72,8 +72,20 @@ export default defineComponent({
     };
     onMounted(getAllClass);
     const handleDelete = (index, row) => {
-      console.log(index, row);
-      row.selected = true;
+      if (localCache.getCache("cnum") >= 4) {
+        console.log("太多了");
+        ElNotification({
+          title: "Warn",
+          message: h(
+            "i",
+            { style: "color: teal" },
+            "You have chosen more than 4 classes"
+          ),
+          type: "warning",
+          duration: 4000,
+        });
+        return;
+      }
       // 发送请求进行选课
       request(
         {
@@ -84,6 +96,8 @@ export default defineComponent({
           const result = res.data;
           console.log(result);
           if (result.code === 200) {
+            row.selected = true;
+            localCache.setCache("cnum", localCache.getCache("cnum") + 1);
             ElNotification({
               title: "Success",
               message: h(
@@ -91,7 +105,7 @@ export default defineComponent({
                 { style: "color: teal" },
                 "You have added the class successfully"
               ),
-              duration: 4,
+              duration: 4000,
             });
           }
         },
