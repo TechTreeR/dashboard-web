@@ -1,10 +1,10 @@
 <template>
   <div class="login-account">
-    <el-form label-width="60px" :model="account" ref="formRef">
+    <el-form label-width="70px" :model="account" ref="formRef">
       <el-form-item label="email" prop="name">
         <el-input v-model="account.email" />
       </el-form-item>
-      <el-form-item label="PW" prop="password">
+      <el-form-item label="password" prop="password">
         <el-input v-model="account.password" show-password />
       </el-form-item>
     </el-form>

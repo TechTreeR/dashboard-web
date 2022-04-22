@@ -1,6 +1,6 @@
 <template>
   <div class="my-lessons" @click="hi">
-    <h3 class="my-class">我的已选课程</h3>
+    <h3 class="my-class">My Selected Courses</h3>
     <div class="lesson-progress">
       <el-progress :text-inside="true" :stroke-width="20" :percentage="num" />
     </div>
@@ -30,6 +30,7 @@ import { defineComponent, reactive, onMounted, toRaw, ref } from "vue";
 import { request } from "@/network/request";
 import { useStore } from "vuex";
 import localCache from "@/utils/cache";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   setup() {
@@ -102,6 +103,10 @@ export default defineComponent({
           },
         },
         (res) => {
+          ElMessage({
+            message: "Congrats, you have unsubscribed the lesson.",
+            type: "success",
+          });
           localCache.setCache("cnum", localCache.getCache("cnum") - 1);
           num = (localCache.getCache("cnum") / 4) * 100;
           const result = res.data;

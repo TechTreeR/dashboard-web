@@ -35,6 +35,7 @@
 import localCache from "@/utils/cache";
 import { request } from "@/network/request";
 import { reactive, onMounted } from "vue";
+import { ElMessage } from "element-plus";
 
 const ruleForm = reactive({
   name: "",
@@ -64,6 +65,10 @@ const saveSelfInfoChange = () => {
       },
     },
     (res) => {
+      ElMessage({
+        message: "Congrats, you have saved your Information.",
+        type: "success",
+      });
       console.log(res);
     },
     (err) => {

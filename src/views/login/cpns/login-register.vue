@@ -1,10 +1,10 @@
 <template>
   <div class="register">
-    <el-form label-width="60px">
-      <el-form-item label="Email">
+    <el-form label-width="70px">
+      <el-form-item label="email">
         <el-input v-model="register.email" />
       </el-form-item>
-      <el-form-item label="Code">
+      <el-form-item label="code">
         <div class="get-code">
           <el-input v-model="register.code" />
           <el-button type="primary" class="get-btn" @click="getVerifyCode"
@@ -12,7 +12,7 @@
           >
         </div>
       </el-form-item>
-      <el-form-item label="PW">
+      <el-form-item label="password">
         <el-input v-model="register.password" />
       </el-form-item>
     </el-form>
