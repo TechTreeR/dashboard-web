@@ -88,7 +88,7 @@ const registerUser = () => {
         const result = res.data;
         if (result.code === 200) {
           ElNotification({
-            title: "You have successfully registered",
+            title: "Congratulations!! Register success, Please login",
             message: h("i", { style: "color: teal" }, "Please login"),
           });
         } else {
