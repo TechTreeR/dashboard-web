@@ -68,7 +68,7 @@ const registerUser = () => {
   if (
     register.email.length > 6 &&
     register.code.length === 6 &&
-    register.password.length > 6
+    register.password.length > 5
   ) {
     // 可以request
     request(
