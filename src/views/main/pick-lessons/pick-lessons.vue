@@ -54,6 +54,7 @@ export default defineComponent({
     const searchCId = ref("");
     const lessons4pick = reactive({
       list: [],
+      forSelect: [],
     });
     const getAllClass = () => {
       request(
@@ -63,6 +64,7 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.list = res.data.data;
+          lessons4pick.forSelect = res.data.data;
           console.log(lessons4pick.list.value);
         },
         (err) => {
@@ -115,13 +117,27 @@ export default defineComponent({
       );
     };
     const search = () => {
+      lessons4pick.list = lessons4pick.forSelect;
       if ("" === searchCId.value) {
         getAllClass();
       }
       console.log("search");
       console.log(searchCId.value);
-      lessons4pick.list = lessons4pick.list.filter((lesson) => {
-        if (lesson.cid === searchCId.value) {
+      var tempList = [];
+      lessons4pick.list.forEach((lesson) => {
+        tempList.push(
+          lesson.cid + lesson.cname + lesson.tname + lesson.place + lesson.major
+        );
+      });
+      var ids = [];
+      tempList.forEach((l, index) => {
+        if (l.includes(searchCId.value)) {
+          ids.push(index);
+        }
+      });
+      lessons4pick.list = lessons4pick.list.filter((lesson, index) => {
+        console.log(lesson);
+        if (ids.indexOf(index) > -1) {
           return true;
         }
         return false;
