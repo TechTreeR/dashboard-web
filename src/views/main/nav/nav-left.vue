@@ -24,7 +24,11 @@
             <el-icon><document /></el-icon>
             <span>My Lessons</span>
           </el-menu-item>
-          <el-menu-item index="3" @click="toMySpace">
+          <el-menu-item index="3" @click="toChatSpace">
+            <el-icon><user-filled /></el-icon>
+            <span>Chat</span>
+          </el-menu-item>
+          <el-menu-item index="4" @click="toMySpace">
             <el-icon><setting /></el-icon>
             <span>Settings</span>
           </el-menu-item>
@@ -44,7 +48,12 @@
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessageBox, ElMessage } from "element-plus";
-import { Document, Setting, FolderOpened } from "@element-plus/icons-vue";
+import {
+  Document,
+  Setting,
+  FolderOpened,
+  UserFilled,
+} from "@element-plus/icons-vue";
 import localCache from "@/utils/cache";
 
 export default defineComponent({
@@ -52,6 +61,7 @@ export default defineComponent({
     Document,
     Setting,
     FolderOpened,
+    UserFilled,
   },
   setup() {
     const router = useRouter();
@@ -67,6 +77,9 @@ export default defineComponent({
     };
     const toMyLessons = () => {
       router.push("/main/my-lessons");
+    };
+    const toChatSpace = () => {
+      router.push("/main/chat-space");
     };
     const handleClose = (key, keyPath) => {
       console.log(key, keyPath);
@@ -104,6 +117,7 @@ export default defineComponent({
       toPickLessons,
       toMyLessons,
       exitSystem,
+      toChatSpace,
     };
   },
 });

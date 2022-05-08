@@ -27,6 +27,10 @@ const routes = [
         path: "pick-lessons",
         component: () => import("@/views/main/pick-lessons/pick-lessons.vue"),
       },
+      {
+        path: "chat-space",
+        component: () => import("@/views/main/chat-space/chat-space.vue"),
+      },
     ],
   },
   {

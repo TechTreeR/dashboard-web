@@ -2,7 +2,11 @@
   <div class="my-lessons" @click="hi">
     <h3 class="my-class">My Selected Courses</h3>
     <div class="lesson-progress">
-      <el-progress :text-inside="true" :stroke-width="20" :percentage="num" />
+      <el-progress
+        :text-inside="true"
+        :stroke-width="20"
+        :percentage="lessons4pick.num1[0]"
+      />
     </div>
     <el-table :data="lessons4pick.list" stripe style="width: 100%" height="600">
       <el-table-column prop="cid" label="ID" width="120" />
@@ -35,12 +39,13 @@ import { ElMessage } from "element-plus";
 export default defineComponent({
   setup() {
     const store = useStore();
-    var num = reactive(0);
     const lessons4pick = reactive({
       list: [],
       pickedList: [],
+      num1: [],
     });
     const getAllClass = () => {
+      lessons4pick.num1[0] = 0;
       request(
         {
           url: "/students/allcourses/" + localCache.getCache("uid"),
@@ -48,10 +53,6 @@ export default defineComponent({
         },
         (res) => {
           lessons4pick.pickedList = res.data.data;
-          num = (lessons4pick.pickedList.length / 4) * 100;
-          console.log(num);
-          console.log("123lyx7");
-          console.log(lessons4pick.pickedList);
         },
         (err) => {
           console.log(err);
@@ -79,8 +80,7 @@ export default defineComponent({
             }
             return false;
           });
-          console.log("hihihi", lessons4pick.list);
-          console.log("end");
+          lessons4pick.num1[0] = (lessons4pick.list.length / 5) * 100;
         },
         (err) => {
           console.log(err);
@@ -107,8 +107,9 @@ export default defineComponent({
             message: "Congrats, you have unsubscribed the lesson.",
             type: "success",
           });
+          lessons4pick.num1[0] -= 20;
           localCache.setCache("cnum", localCache.getCache("cnum") - 1);
-          num = (localCache.getCache("cnum") / 4) * 100;
+          lessons4pick.num1[0] = (localCache.getCache("cnum") / 5) * 100;
           const result = res.data;
           console.log(result);
           if (result.code === 200) {
@@ -127,7 +128,7 @@ export default defineComponent({
     };
 
     return {
-      num,
+      //num,
       lessons4pick,
       hi,
       handleUnsubscribe,
