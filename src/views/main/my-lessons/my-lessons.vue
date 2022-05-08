@@ -80,7 +80,7 @@ export default defineComponent({
             }
             return false;
           });
-          lessons4pick.num1[0] = (lessons4pick.list.length / 5) * 100;
+          lessons4pick.num1[0] = (lessons4pick.list.length / 4) * 100;
         },
         (err) => {
           console.log(err);
@@ -107,9 +107,8 @@ export default defineComponent({
             message: "Congrats, you have unsubscribed the lesson.",
             type: "success",
           });
-          lessons4pick.num1[0] -= 20;
+          lessons4pick.num1[0] -= 25;
           localCache.setCache("cnum", localCache.getCache("cnum") - 1);
-          lessons4pick.num1[0] = (localCache.getCache("cnum") / 5) * 100;
           const result = res.data;
           console.log(result);
           if (result.code === 200) {
