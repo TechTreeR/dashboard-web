@@ -105,7 +105,6 @@ const registerUser = () => {
     );
   } else {
     // 输入信息有误 不可以
-    console.log("haren123");
     ElNotification({
       title: "Error",
       message: "Please enter valid user info",
