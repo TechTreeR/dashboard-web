@@ -21,9 +21,9 @@
       <el-table-column prop="cid" label="ID" width="120" />
       <el-table-column prop="cname" label="Class Name" width="320" />
       <el-table-column prop="tname" label="Teacher" width="160" />
-      <el-table-column prop="place" label="Location" width="80" />
+      <el-table-column prop="place" label="Location" width="90" />
       <el-table-column prop="major" label="Major" width="80" />
-      <el-table-column prop="capacity" label="Capacity" width="80" />
+      <el-table-column prop="capacity" label="Capacity" width="90" />
       <el-table-column label="Operation" width="120" align="right">
         <template #default="scope">
           <el-button
@@ -36,7 +36,33 @@
           <el-button v-else size="small" type="success" disabled>Add</el-button>
         </template>
       </el-table-column>
+      <el-table-column width="120" align="right">
+        <template #default="scope">
+          <el-button
+            size="small"
+            type="primary"
+            @click="findFriends(scope.$index, scope.row)"
+            >Classmates</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
+    <el-dialog
+      v-model="dialogVisible"
+      :title="classmates.header"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <div v-for="stu in classmates.friends" :key="stu.id">{{ stu.email }}</div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="dialogVisible = false"
+            >Confirm</el-button
+          >
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -51,10 +77,15 @@ export default defineComponent({
     Search,
   },
   setup() {
+    var dialogVisible = ref(false);
     const searchCId = ref("");
     const lessons4pick = reactive({
       list: [],
       forSelect: [],
+    });
+    var classmates = reactive({
+      header: "123",
+      friends: [],
     });
     const getAllClass = () => {
       request(
@@ -116,6 +147,26 @@ export default defineComponent({
         }
       );
     };
+    const findFriends = (index, row) => {
+      // 获取 friends
+      classmates.header = row.cname;
+      request(
+        {
+          url: "/students/classmates/" + row.cid,
+          method: "get",
+        },
+        (res) => {
+          console.log(res.data.data);
+          classmates.friends = res.data.data;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+
+      dialogVisible.value = true;
+      console.log(index, row);
+    };
     const search = () => {
       lessons4pick.list = lessons4pick.forSelect;
       if ("" === searchCId.value) {
@@ -148,6 +199,9 @@ export default defineComponent({
       handleDelete,
       searchCId,
       search,
+      findFriends,
+      dialogVisible,
+      classmates,
     };
   },
   onMounted() {},

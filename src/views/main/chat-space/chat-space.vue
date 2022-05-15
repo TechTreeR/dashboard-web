@@ -99,11 +99,9 @@ const getAllComments = () => {
     (res) => {
       var list = res.data.data;
       list.forEach((item) => {
-        console.log("hihihi");
-        console.log(item.createdTime);
-        item.createdTime = dayjs(item.createdTime).format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
+        item.createdTime = dayjs(item.createdTime)
+          .add(8, "hour")
+          .format("YYYY-MM-DD HH:mm:ss");
         console.log(item.createdTime);
       });
       commentsAll.comments = list;
